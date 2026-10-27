@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Личный кабинет</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; background: #eef6f0; color: #1c2b22; }}
+.wrap {{ max-width: 700px; margin: 0 auto; padding: 14px; }}
+.card {{ background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(30,80,60,.08); }}
+.card h2 {{ font-size: 15px; color: #2e7d5b; margin-bottom: 10px; }}
+.row {{ display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #f0f5f1; flex-wrap: wrap; gap: 4px; }}
+.row:last-child {{ border-bottom: none; }}
+.k {{ color: #5b6b62; font-size: 14px; }}
+.v {{ font-weight: 600; }}
+.green {{ color: #1e8e52; }}
+.red {{ color: #d23b3b; }}
+.btn {{ display: inline-block; background: #2e7d5b; color: #fff; border: none; border-radius: 9px; padding: 10px 16px; font-size: 14px; cursor: pointer; text-decoration: none; margin: 4px 4px 0 0; }}
+.btn.gray {{ background: #7a8a81; }}
+.tab {{ display: inline-block; padding: 8px 14px; margin-right: 6px; border-radius: 9px 9px 0 0; background: #dcebe1; color: #2e7d5b; cursor: pointer; font-size: 14px; }}
+.tab.active {{ background: #2e7d5b; color: #fff; }}
+.page {{ display: none; }}
+.page.active {{ display: block; }}
+table {{ width: 100%; border-collapse: collapse; }}
+th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid #eef4ef; font-size: 13px; }}
+th {{ color: #2e7d5b; }}
+.login {{ text-align: center; padding: 40px 10px; }}
+.login input {{ width: 100%; max-width: 320px; padding: 12px; border: 1px solid #c9d8cf; border-radius: 9px; font-size: 16px; margin: 10px 0; text-align: center; }}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const DATA = {"clients": [{"name": "Alex F", "chat_id": 1784042956, "balance": "197 ₽", "support": "Оператор на связи (обычно отвечает за 5–10 минут). Пишите сюда.", "subscription": {"plan": "Trial", "amount": "бесплатно", "paid_until": "10.11.2026", "configs": "AmneziaWG", "devices": "1/1", "traffic": "—"}, "plans": [{"name": "Стандарт", "price": "250 ₽/мес", "desc": "1 конфига, безлимитный трафик"}, {"name": "Премиум", "price": "1 900 ₽/мес", "desc": "5 конфигов, приоритетная поддержка"}], "history": [{"date": "27.10.2026", "title": "Оплата (админ, сайт)", "amount": "+150.00 ₽", "status": "успешно", "type": "income"}, {"date": "26.10.2026", "title": "Списание (администратором)", "amount": "-5.00 ₽", "status": "успешно", "type": "expense"}, {"date": "26.10.2026", "title": "Списание (администратором)", "amount": "-200.00 ₽", "status": "успешно", "type": "expense"}, {"date": "26.10.2026", "title": "Оплата (внесена администратором)", "amount": "+1.00 ₽", "status": "успешно", "type": "income"}, {"date": "26.10.2026", "title": "Списание (администратором)", "amount": "-500.00 ₽", "status": "успешно", "type": "expense"}, {"date": "26.10.2026", "title": "Списание (администратором)", "amount": "-200.00 ₽", "status": "успешно", "type": "expense"}, {"date": "26.10.2026", "title": "Оплата (внесена администратором)", "amount": "+1.00 ₽", "status": "успешно", "type": "income"}, {"date": "26.10.2026", "title": "Оплата (внесена администратором)", "amount": "+600.00 ₽", "status": "успешно", "type": "income"}, {"date": "26.10.2026", "title": "Оплата (внесена администратором)", "amount": "+500.00 ₽", "status": "успешно", "type": "income"}, {"date": "25.09.2026", "title": "Пополнение баланса", "amount": "+80 ₽", "status": "успешно", "type": "income"}, {"date": "25.08.2026", "title": "Пополнение баланса", "amount": "+70 ₽", "status": "успешно", "type": "income"}, {"date": "21.10.2026", "title": "Активация Trial", "amount": "0 ₽", "status": "успешно", "type": "income"}], "servers": [{"name": "Россия (Москва)", "ping": "12", "status": "ok"}, {"name": "Германия (Франкфурт)", "ping": "45", "status": "ok"}, {"name": "Нидерланды (Амстердам)", "ping": "52", "status": "ok"}, {"name": "США (Нью-Йорк)", "ping": "110", "status": "ok"}, {"name": "Турция (Стамбул)", "ping": "—", "status": "down"}], "notifications": [], "payments": [{"title": "VPN-подписка действует до", "date": "10.11.2026", "amount": "250 ₽", "pay_url": "https://t.me/send?start=pay-1784042956", "warn_days": [7, 3, 1], "text": "⚠️ Внимание! {date} будет отключён доступ к VPN. Просьба оплатить подписку ({title}). После оплаты доступ сохранится."}], "notify_interval": 10080, "cabinet_actions": ["cabinet", "reminders", "plans", "history", "support", "interval"]}, {"name": "Ildar stone", "chat_id": 936388014, "balance": "500 ₽", "support": "Оператор на связи.", "subscription": {"plan": "Trial", "amount": "500", "paid_until": "09.11.2026", "configs": "1 конфиг", "devices": "—", "traffic": "—"}, "plans": [], "history": [{"date": "27.10.2026", "title": "Оплата (внесена администратором)", "amount": "+250.00 ₽", "status": "успешно", "type": "income"}], "payments": [], "notifications": []}]};
+
+const Telegram = window.Telegram && window.Telegram.WebApp;
+if (Telegram) {{
+  Telegram.expand();
+  Telegram.ready();
+}}
+
+function clientByChatId(id) {{
+  return DATA.clients.find(c => String(c.chat_id) === String(id));
+}}
+
+function getUserChatId() {{
+  // из Mini App initData
+  if (Telegram && Telegram.initDataUnsafe && Telegram.initDataUnsafe.user) {{
+    return String(Telegram.initDataUnsafe.user.id);
+  }}
+  return null;
+}}
+
+function statusInfo(dueStr) {{
+  const today = new Date();
+  const m = String(dueStr).match(/(\d{{2}})\.(\d{{2}})\.(\d{{4}})/);
+  if (!m) return {{ text: '—', cls: '' }};
+  const due = new Date(+m[3], +m[2]-1, +m[1]);
+  const days = Math.ceil((due - today) / (1000*60*60*24));
+  if (days >= 0) return {{ text: 'активна · ' + days + ' дн.', cls: 'green' }};
+  return {{ text: 'истекла', cls: 'red' }};
+}}
+
+function esc(s) {{
+  return String(s ?? '').replace(/[&<>"']/g, c => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]));
+}}
+
+function renderClient(c) {{
+  const sub = c.subscription || {{}};
+  const st = statusInfo(sub.paid_until);
+  const plans = (c.plans||[]).map(p => `<tr><td><b>${{esc(p.name)}}</b></td><td>${{esc(p.price)}}</td><td>${{esc(p.desc)}}</td></tr>`).join('');
+  const hist = (c.history||[]).slice(0,20).map(h => {{
+    const sign = h.type === 'income' ? '➕' : '➖';
+    return `<tr><td>${{esc(h.date)}}</td><td>${{sign}} ${{esc(h.title)}}</td><td>${{esc(h.amount)}}</td><td>${{esc(h.status)}}</td></tr>`;
+  }}).join('');
+  const pay = (c.payments||[]).map(p => {{
+    const url = p.pay_url || '';
+    const link = url ? ` <a class="btn" href="${{esc(url)}}">Оплатить ${{esc(p.amount||'')}}</a>` : '';
+    return `<div class="row"><span class="k">${{esc(p.title)}}</span><span class="v">${{esc(p.date)}}${{link}}</span></div>`;
+  }}).join('');
+  return `
+  <div class="card">
+    <h2>🏷 Текущий тариф</h2>
+    <div class="row"><span class="k">Тариф</span><span class="v">${{esc(sub.plan||'—')}}</span></div>
+    <div class="row"><span class="k">Стоимость</span><span class="v">${{esc(sub.amount||'—')}}</span></div>
+    <div class="row"><span class="k">Оплачен до</span><span class="v">${{esc(sub.paid_until||'—')}}</span></div>
+    <div class="row"><span class="k">Статус</span><span class="v ${{st.cls}}">${{st.text}}</span></div>
+    <div class="row"><span class="k">Баланс</span><span class="v">${{esc(c.balance||'0 ₽')}}</span></div>
+    <div class="row"><span class="k">Конфиги</span><span class="v">${{esc(sub.configs||'—')}}</span></div>
+    <div class="row"><span class="k">Устройства</span><span class="v">${{esc(sub.devices||'—')}}</span></div>
+    <div class="row"><span class="k">Трафик</span><span class="v">${{esc(sub.traffic||'—')}}</span></div>
+  </div>
+  <div class="card"><h2>💰 Тарифы и оплата</h2>
+    ${{plans ? '<table>'+plans+'</table>' : '<p style="color:#5b6b62">Список тарифов пуст.</p>'}}
+    ${{pay ? '<div style="margin-top:10px">'+pay+'</div>' : ''}}
+  </div>
+  <div class="card"><h2>📜 История операций</h2>
+    ${{hist ? '<table>'+hist+'</table>' : '<p style="color:#5b6b62">История пуста.</p>'}}
+  </div>`;
+}}
+
+function renderLogin() {{
+  document.getElementById('app').innerHTML = `
+  <div class="login">
+    <div style="font-size:40px">👤</div>
+    <h2 style="margin:12px 0;color:#2e7d5b">Личный кабинет</h2>
+    <input id="cid" type="text" placeholder="Ваш chat_id" inputmode="numeric">
+    <button class="btn" onclick="doLogin()">Войти</button>
+    <div style="font-size:12px;color:#7a8a81;margin-top:12px">chat_id можно узнать у бота (журнал посещений /users)</div>
+  </div>`;
+}}
+
+function doLogin() {{
+  const id = document.getElementById('cid').value.trim();
+  const c = clientByChatId(id);
+  if (!c) {{ alert('Клиент с таким chat_id не найден'); return; }}
+  renderClient(c);
+  if (Telegram) Telegram.MainButton.hide();
+}}
+
+function renderClient(c) {{
+  document.getElementById('app').innerHTML = renderClient(c);
+}}
+
+function boot() {{
+  const cid = getUserChatId();
+  const c = cid ? clientByChatId(cid) : null;
+  if (c) {{
+    renderClient(c);
+  }} else {{
+    renderLogin();
+  }}
+}}
+boot();
+</script>
+</body>
+</html>
